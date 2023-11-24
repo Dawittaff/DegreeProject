@@ -19,7 +19,7 @@ const data = {
       category: 'Pain Killers',
       image: '/images/p1.jpg', // size should be 679px x 829px
       price: 38,
-      countInStock: 15,
+      countInStock: 0,
       brand: 'Brufen',
       rating: 4.5,
       numReviews: 10,

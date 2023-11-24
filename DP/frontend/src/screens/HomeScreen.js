@@ -5,6 +5,9 @@ import { useEffect, useReducer } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Product from '../components/Product';
+import { Helmet } from 'react-helmet-async';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 
 // usereducer is prefereable over use state when there is
 // complex state logic
@@ -53,12 +56,16 @@ function HomeScreen() {
   return (
     <div>
       {' '}
+      {/* Adding helmet package to change browser titles */}
+      <Helmet>
+        <title>MediCare</title>
+      </Helmet>
       <h1>Featured Products</h1>
       <div className="products">
         {loading ? (
-          <div>Loading...</div>
+          <LoadingBox />
         ) : error ? (
-          <div>{error} </div>
+          <MessageBox variant="danger">{error}</MessageBox>
         ) : (
           <Row>
             {products.map((product) => (
