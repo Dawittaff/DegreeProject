@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useContext, useEffect, useReducer } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
@@ -33,6 +33,7 @@ const reducer = (state, action) => {
 function ProductScreen() {
   //get product from URL and show it on the screen - hook react-router-dom (useParams)
   const params = useParams();
+  const navigate = useNavigate();
   const { slug } = params;
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
     product: [],
@@ -75,6 +76,8 @@ function ProductScreen() {
       type: 'CART_ADD_ITEM',
       payload: { ...product, quantity },
     });
+    // from useNavigate hook
+    navigate('/cart');
   };
   return loading ? (
     <LoadingBox />
