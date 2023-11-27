@@ -6,7 +6,10 @@ export const Store = createContext();
 
 const initialState = {
   cart: {
-    cartItems: [],
+    // check if cartItems exist in local storgae
+    cartItems: localStorage.getItem('cartItems')
+      ? JSON.parse(localStorage.getItem('cartItems'))
+      : [],
   },
 };
 function reducer(state, action) {
@@ -22,10 +25,19 @@ function reducer(state, action) {
             item._id === existItem._id ? newItem : item
           )
         : [...state.cart.cartItems, newItem];
+      // saving items in cart in our local storage to save during page refresh
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
       return { ...state, cart: { ...state.cart, cartItems } };
     // keep all values(...items previously in the cart) and only update cartItems
     //next wrap the app in the index.js with the storeProvider
+    case 'CART_REMOVE_ITEM': {
+      const cartItems = state.cart.cartItems.filter(
+        (item) => item._id !== action.payload._id
+      );
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
+      return { ...state, cart: { ...state.cart, cartItems } };
+    }
     default:
       return state;
   }
