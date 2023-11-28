@@ -1,7 +1,7 @@
 const data = {
   products: [
     {
-      _id: '1',
+      // _id: '1',
       name: 'Advil',
       slug: 'advil-otc',
       category: 'Pain Killers',
@@ -15,7 +15,7 @@ const data = {
         ' Advil - an organic chemical compound, a non-steroidal anti-inflammatory drug, a derivative of propionic acid with anti-inflammatory, analgesic and antipyretic properties',
     },
     {
-      _id: '2',
+      // _id: '2',
       name: 'Asprin',
       slug: 'asprin-otc',
       category: 'Pain Killers',
@@ -29,7 +29,7 @@ const data = {
         'Asprin - an organic chemical compound, a non-steroidal anti-inflammatory drug, a derivative of propionic acid with anti-inflammatory, analgesic and antipyretic properties',
     },
     {
-      _id: '3',
+      // _id: '3',
       name: 'Ibuprofen',
       slug: 'advil1-otc',
       category: 'Pain Killers',
@@ -43,8 +43,8 @@ const data = {
         'Ibuprofen - an organic chemical compound, a non-steroidal anti-inflammatory drug, a derivative of propionic acid with anti-inflammatory, analgesic and antipyretic properties',
     },
     {
-      _id: '4',
-      name: 'Ibuprofen',
+      // _id: '4',
+      name: 'Ibuprofens',
       slug: 'advil2-otc',
       category: 'Pain Killers',
       image: '/images/p1.jpg',
