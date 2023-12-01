@@ -15,7 +15,8 @@ mongoose
   });
 //function to retuen express app
 const app = express();
-
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 app.use('/api/seed', seedRouter);
 // test
 // app.get('/api/products', (req, res) => {
@@ -25,7 +26,6 @@ app.use('/api/products', productRouter);
 
 //defining port that responds to the backend
 const port = process.env.PORT || 5000;
-//get server ready to respond to the request from frontend
 app.listen(port, () => {
   console.log(`serve at http://localhost:${port}`);
 });

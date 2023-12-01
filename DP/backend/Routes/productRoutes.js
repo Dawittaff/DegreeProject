@@ -8,14 +8,14 @@ productRouter.get('/', async (req, res) => {
   res.send(products);
 });
 // get the details to the product details screen based on the slug
-productRouter.get(' /slug/:slug', async (req, res) => {
+productRouter.get('/slug/:slug', async (req, res) => {
   const product = await Product.findOne({ slug: req.params.slug });
   if (product) {
     res.send(product);
+    // res.send(data.products);
   } else {
     res.status(404).send({ message: 'Product Not Found' });
   }
-  // res.send(data.products);
 });
 
 productRouter.get('/:id', async (req, res) => {
