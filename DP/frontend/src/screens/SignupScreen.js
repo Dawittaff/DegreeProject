@@ -30,6 +30,7 @@ export default function SignupScreen() {
       toast.error('Passwords do not match');
       return;
     }
+    //!  add a sign up error if email error matches email in DB
     try {
       // send Ajax request to backend & get a response & extract data
       const { data } = await Axios.post('/api/users/signup', {
