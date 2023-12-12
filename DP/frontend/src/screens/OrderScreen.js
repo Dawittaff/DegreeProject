@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useReducer } from 'react';
-// import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
@@ -23,6 +23,7 @@ function reducer(state, action) {
       return { ...state, loading: false, order: action.payload, error: '' };
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
+
     case 'PAY_REQUEST':
       return { ...state, loadingPay: true };
     case 'PAY_SUCCESS':
@@ -75,8 +76,6 @@ export default function OrderScreen() {
     loadingPay: false,
   });
 
-  // const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
-
   function createOrder(data, actions) {
     return actions.order
       .create({
@@ -113,6 +112,7 @@ export default function OrderScreen() {
   function onError(err) {
     toast.error(getError(err));
   }
+  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -143,31 +143,30 @@ export default function OrderScreen() {
       if (successDeliver) {
         dispatch({ type: 'DELIVER_RESET' });
       }
+    } else {
+      const loadPaypalScript = async () => {
+        const { data: clientId } = await axios.get('/api/keys/paypal', {
+          headers: { authorization: `Bearer ${userInfo.token}` },
+        });
+        paypalDispatch({
+          type: 'resetOptions',
+          value: {
+            'client-id': clientId,
+            currency: 'USD',
+          },
+        });
+        paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
+      };
+      loadPaypalScript();
     }
-    // else {
-    //   const loadPaypalScript = async () => {
-    //     const { data: clientId } = await axios.get('/api/keys/paypal', {
-    //       headers: { authorization: `Bearer ${userInfo.token}` },
-    //     });
-    //     paypalDispatch({
-    //       type: 'resetOptions',
-    //       value: {
-    //         'client-id': clientId,
-    //         currency: 'USD',
-    //       },
-    //     });
-    //     paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
-    //   };
-    //   loadPaypalScript();
-    // }
   }, [
     order,
     userInfo,
     orderId,
     navigate,
-    // paypalDispatch,
     successPay,
     successDeliver,
+    paypalDispatch,
   ]);
 
   async function deliverOrderHandler() {
@@ -304,7 +303,7 @@ export default function OrderScreen() {
                     </Col>
                   </Row>
                 </ListGroup.Item>
-                {/* {!order.isPaid && (
+                {!order.isPaid && (
                   <ListGroup.Item>
                     {isPending ? (
                       <LoadingBox />
@@ -319,7 +318,7 @@ export default function OrderScreen() {
                     )}
                     {loadingPay && <LoadingBox></LoadingBox>}
                   </ListGroup.Item>
-                )} */}
+                )}
                 {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                   <ListGroup.Item>
                     {loadingDeliver && <LoadingBox></LoadingBox>}
