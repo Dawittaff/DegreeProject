@@ -37,7 +37,7 @@ app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
 });
 //defining port that responds to the backend
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log(`serve at http://localhost:${port}`);
 });
