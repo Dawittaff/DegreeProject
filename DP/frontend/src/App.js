@@ -28,6 +28,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import DashboardScreen from './screens/DashboardScreen';
 import AdminRoute from './components/AdminRoute';
 import Mainscreen from './screens/MainScreen';
+import ServiceListingScreen from './screens/ServiceListingScreen';
+import ServiceDescriptionScreen from './screens/ServiceDescriptionScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -124,6 +126,17 @@ function App() {
                       <LinkContainer to="admin/dashboard">
                         <NavDropdown.Item>Dashboard</NavDropdown.Item>
                       </LinkContainer>
+                      {/* !!!!!TO BE REMOVED LATER */}
+                      <LinkContainer to="/services">
+                        <NavDropdown.Item>Services</NavDropdown.Item>
+                      </LinkContainer>
+                      {/* <LinkContainer to="/services/:slug">
+                        <NavDropdown.Item>
+                          Services description
+                        </NavDropdown.Item>
+                      </LinkContainer> */}
+                      {/* !!!!!TO BE REMOVED LATER */}
+
                       <LinkContainer to="admin/appointments">
                         <NavDropdown.Item>Appointments</NavDropdown.Item>
                       </LinkContainer>
@@ -181,6 +194,15 @@ function App() {
               ></Route>
               <Route path="/" element={<HomeScreen />}></Route>
               <Route path="/main" element={<Mainscreen />}></Route>
+
+              <Route
+                path="/services"
+                element={<ServiceListingScreen />}
+              ></Route>
+              <Route
+                path="/service/:slug"
+                element={<ServiceDescriptionScreen />}
+              ></Route>
               <Route path="/cart" element={<CartScreen />}></Route>
               <Route path="/signin" element={<SigninScreen />}></Route>
               <Route path="/signup" element={<SignupScreen />}></Route>

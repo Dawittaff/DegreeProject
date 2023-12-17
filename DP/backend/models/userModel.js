@@ -8,6 +8,20 @@ const userSchema = new mongoose.Schema(
     isAdmin: { type: Boolean, default: false, required: true },
     address: { type: String, required: false },
     DOBirth: { type: Date, required: false },
+    // phone: {
+    //   type: String,
+    //   required: true,
+    // },
+    role: {
+      type: String,
+      enum: ['admin', 'doctor', 'patient'],
+      default: 'patient',
+    },
+    department: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Department',
+      default: null,
+    },
   },
   {
     timestamps: true,

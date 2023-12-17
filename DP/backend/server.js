@@ -6,6 +6,8 @@ import seedRouter from './Routes/seedRoutes.js';
 import productRouter from './Routes/productRoutes.js';
 import userRouter from './Routes/userRoutes.js';
 import orderRouter from './Routes/orderRoutes.js';
+import serviceRouter from './Routes/serviceRoutes.js';
+
 dotenv.config();
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -22,13 +24,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/seed', seedRouter);
 // test
-// app.get('/api/products', (req, res) => {
-//   res.send(data.products);
-// });
+
 app.get('/api/keys/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
 });
 app.use('/api/products', productRouter);
+app.use('/api/services', serviceRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 
